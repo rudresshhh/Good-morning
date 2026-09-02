@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Good Morning</title>
+<meta name="description" content="A small letter for you." />
+
+<!-- Fonts: Cormorant Garamond for the handwritten/display feel, DM Sans for calm body text -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- ======================================================
+     SCENE 1 — THE MORNING
+====================================================== -->
+<section class="scene scene--hero" id="hero" aria-label="Morning greeting">
+  <div class="hero__sky" aria-hidden="true">
+    <div class="hero__glow"></div>
+    <div class="hero__particles" id="heroParticles"></div>
+  </div>
+
+  <div class="hero__content">
+    <p class="hero__pretext reveal" data-reveal-order="1">Hey, <span id="nameSlot"></span>...</p>
+    <h1 class="hero__title reveal" data-reveal-order="2" id="morningTitle"></h1>
+    <p class="hero__lead reveal" data-reveal-order="3">I made something tiny for you.</p>
+    <p class="hero__message reveal" data-reveal-order="4" id="morningMessage"></p>
+  </div>
+
+  <button class="scroll-cue reveal" data-reveal-order="5" id="scrollCue" type="button" aria-label="Scroll to the next part">
+    there's a little more <span class="scroll-cue__arrow">↓</span>
+  </button>
+</section>
+
+<!-- ======================================================
+     SCENE 2 — THE LITTLE TO-DO LIST
+====================================================== -->
+<section class="scene scene--todo" id="todo" aria-label="A little list for today">
+  <div class="paper-texture" aria-hidden="true"></div>
+  <div class="section-inner">
+    <h2 class="reveal fade-up" id="todoTitle"></h2>
+    <p class="section-sub reveal fade-up" id="todoSubtitle"></p>
+
+    <ul class="todo-list" id="todoList" role="list"></ul>
+  </div>
+</section>
+
+<!-- ======================================================
+     SCENE 3 — OPTIONAL PHOTO MEMORY
+====================================================== -->
+<section class="scene scene--photo" id="photo" aria-label="A photo of us" hidden>
+  <div class="section-inner section-inner--narrow">
+    <div class="photo-frame reveal scale-in">
+      <img id="memoryPhoto" src="" alt="A photo of the two of us" />
+    </div>
+    <p class="photo-caption reveal fade-up" id="photoCaption"></p>
+  </div>
+</section>
+
+<!-- ======================================================
+     SCENE 4 — TRANSITION LINE
+====================================================== -->
+<section class="scene scene--transition" aria-hidden="true">
+  <p class="transition-line reveal fade-up">Okay... now for the part I actually wanted to say.</p>
+</section>
+
+<!-- ======================================================
+     SCENE 5 — THE APOLOGY LETTER
+====================================================== -->
+<section class="scene scene--apology" id="apology" aria-label="About yesterday">
+  <div class="section-inner section-inner--narrow">
+    <div class="letter-card">
+      <div class="letter-card__mark" aria-hidden="true">❤</div>
+      <h2 id="apologyTitle"></h2>
+      <p class="letter-line reveal fade-up" id="apologyP1"></p>
+      <p class="letter-line reveal fade-up" id="apologyP2"></p>
+      <p class="letter-line reveal fade-up" id="apologyP3"></p>
+      <p class="letter-line reveal fade-up" id="apologyP4"></p>
+      <p class="letter-close reveal fade-up" id="apologyClosing"></p>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================================
+     SCENE 6 — THE FINAL LOVE SECTION
+====================================================== -->
+<section class="scene scene--love" id="love" aria-label="I love you">
+  <div class="love__glow" aria-hidden="true"></div>
+  <div class="love__hearts" id="loveHearts" aria-hidden="true"></div>
+
+  <div class="section-inner">
+    <p class="love__lead reveal fade-up" id="loveTitle"></p>
+    <h2 class="love__main reveal scale-in" id="loveMain"></h2>
+    <p class="love__message reveal fade-up" id="loveMessage"></p>
+    <p class="love__final reveal fade-up" id="loveFinal"></p>
+    <p class="love__mark reveal fade-in">❤</p>
+    <p class="love__signature reveal fade-up" id="loveSignature"></p>
+  </div>
+
+  <button class="restart" id="restartBtn" type="button">Start the morning again ☀️</button>
+</section>
+
+<script src="script.js"></script>
+</body>
+</html>
