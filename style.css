@@ -1,19 +1,23 @@
 /* =========================================================
    CONFIGURATION — design tokens
-   The whole page moves through one gradual color journey:
-   sunrise → cream paper → soft blush → warm white → glow
+   The whole page now moves through a monochrome journey:
+   deep black night → charcoal → soft grey dawn → silver glow
+   A single warm ember accent carries the emotion through the dark.
 ========================================================= */
 :root {
-  --cream:        #FBF4E9;
-  --peach:        #F3D9BE;
-  --blush:        #F3DCE0;
-  --lavender:     #E9E1EF;
-  --warm-white:   #FFFBF6;
-  --brown-ink:    #5B4636;
-  --brown-soft:   #8A7360;
-  --accent:       #C97C6D;
-  --accent-deep:  #B5604E;
-  --paper-shadow: rgba(91, 70, 54, 0.12);
+  --black:        #0A0A0C;
+  --charcoal:     #131316;
+  --graphite:     #1D1D21;
+  --grey-dark:    #2B2B30;
+  --grey-mid:     #55555C;
+  --grey-soft:    #8C8C93;
+  --grey-pale:    #C7C7CD;
+  --white-soft:   #F0F0F2;
+  --ink:          #ECECEE;
+  --ink-dim:      #A9A9B0;
+  --accent:       #D8A88C;
+  --accent-deep:  #C98A66;
+  --paper-shadow: rgba(0, 0, 0, 0.55);
 
   --font-display: 'Cormorant Garamond', serif;
   --font-body: 'DM Sans', sans-serif;
@@ -32,8 +36,8 @@ html {
 body {
   margin: 0;
   font-family: var(--font-body);
-  color: var(--brown-ink);
-  background: var(--cream);
+  color: var(--ink);
+  background: var(--black);
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
 }
@@ -42,7 +46,7 @@ h1, h2 {
   font-family: var(--font-display);
   font-weight: 500;
   margin: 0;
-  color: var(--brown-ink);
+  color: var(--white-soft);
 }
 
 p { margin: 0; }
@@ -71,11 +75,31 @@ img { max-width: 100%; display: block; }
 .section-inner--narrow { max-width: 520px; }
 
 .section-sub {
-  color: var(--brown-soft);
+  color: var(--ink-dim);
   font-size: 1.05rem;
   margin-top: 0.6rem;
   margin-bottom: 2.5rem;
 }
+
+/* =========================================================
+   CURSOR SPOTLIGHT — soft light follows the pointer
+   Set by script.js on mousemove (desktop only, subtle)
+========================================================= */
+.spotlight {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: radial-gradient(
+    420px circle at var(--x, 50%) var(--y, 50%),
+    rgba(216, 168, 140, 0.06),
+    transparent 70%
+  );
+  transition: opacity 0.4s ease;
+  opacity: 0;
+}
+
+.spotlight.active { opacity: 1; }
 
 /* =========================================================
    REVEAL / ANIMATION SYSTEM
@@ -102,21 +126,22 @@ img { max-width: 100%; display: block; }
     transition: opacity 0.4s ease;
     transform: none !important;
   }
-  .hero__particles, .love__hearts, .hero__glow, .love__glow {
+  .hero__particles, .hero__stars, .love__hearts, .hero__glow, .love__glow, .spotlight {
     animation: none !important;
+    display: none !important;
   }
 }
 
 /* =========================================================
-   SCENE 1 — HERO / SUNRISE
+   SCENE 1 — HERO / NIGHT INTO GREY DAWN
 ========================================================= */
 .scene--hero {
   min-height: 100vh;
   background: linear-gradient(180deg,
-    var(--lavender) 0%,
-    var(--blush) 32%,
-    var(--peach) 62%,
-    var(--cream) 100%);
+    var(--black) 0%,
+    var(--charcoal) 38%,
+    var(--graphite) 68%,
+    var(--grey-dark) 100%);
   padding-top: 4rem;
   padding-bottom: 3rem;
 }
@@ -135,7 +160,7 @@ img { max-width: 100%; display: block; }
   width: 70vmax;
   height: 70vmax;
   transform: translateX(-50%);
-  background: radial-gradient(circle, rgba(255, 226, 189, 0.85) 0%, rgba(255, 226, 189, 0.35) 35%, rgba(255, 226, 189, 0) 68%);
+  background: radial-gradient(circle, rgba(216, 168, 140, 0.14) 0%, rgba(216, 168, 140, 0.05) 35%, rgba(216, 168, 140, 0) 68%);
   animation: glow-breathe 9s ease-in-out infinite;
 }
 
@@ -154,15 +179,33 @@ img { max-width: 100%; display: block; }
   width: 3px;
   height: 3px;
   border-radius: 50%;
-  background: rgba(255, 250, 240, 0.8);
+  background: rgba(236, 236, 238, 0.55);
   animation: drift linear infinite;
 }
 
 @keyframes drift {
   0% { transform: translateY(0) translateX(0); opacity: 0; }
-  10% { opacity: 0.8; }
-  90% { opacity: 0.5; }
+  10% { opacity: 0.7; }
+  90% { opacity: 0.4; }
   100% { transform: translateY(-90vh) translateX(20px); opacity: 0; }
+}
+
+/* Twinkling stars — a new ambient layer scattered across the hero */
+.hero__stars {
+  position: absolute;
+  inset: 0;
+}
+
+.star {
+  position: absolute;
+  border-radius: 50%;
+  background: var(--grey-pale);
+  animation: twinkle ease-in-out infinite;
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.15; transform: scale(0.8); }
+  50% { opacity: 0.9; transform: scale(1.15); }
 }
 
 .hero__content {
@@ -176,7 +219,7 @@ img { max-width: 100%; display: block; }
   font-family: var(--font-display);
   font-style: italic;
   font-size: 1.3rem;
-  color: var(--brown-soft);
+  color: var(--ink-dim);
   margin-bottom: 0.75rem;
 }
 
@@ -184,11 +227,12 @@ img { max-width: 100%; display: block; }
   font-size: clamp(2.6rem, 9vw, 4.6rem);
   line-height: 1.08;
   margin-bottom: 1.1rem;
+  color: var(--white-soft);
 }
 
 .hero__lead {
   font-size: 1.15rem;
-  color: var(--brown-soft);
+  color: var(--ink-dim);
   margin-bottom: 1.4rem;
 }
 
@@ -197,6 +241,7 @@ img { max-width: 100%; display: block; }
   line-height: 1.7;
   max-width: 30rem;
   margin: 0 auto;
+  color: var(--ink);
 }
 
 .scroll-cue {
@@ -208,7 +253,7 @@ img { max-width: 100%; display: block; }
   font-family: var(--font-body);
   font-size: 0.95rem;
   letter-spacing: 0.02em;
-  color: var(--brown-soft);
+  color: var(--ink-dim);
   cursor: pointer;
   padding: 0.5rem 1rem;
   animation: cue-float 2.6s ease-in-out infinite;
@@ -225,27 +270,29 @@ img { max-width: 100%; display: block; }
 .checkbox-btn:focus-visible,
 .restart:focus-visible,
 .music-toggle:focus-visible {
-  outline: 2px solid var(--accent-deep);
+  outline: 2px solid var(--accent);
   outline-offset: 3px;
   border-radius: 4px;
 }
 
 /* =========================================================
-   SCENE 2 — TODO / PAPER PLANNER
+   SCENE 2 — TODO / SLATE PLANNER
 ========================================================= */
 .scene--todo {
   background:
-    radial-gradient(circle at 15% 20%, rgba(201, 124, 109, 0.05), transparent 40%),
-    var(--cream);
+    radial-gradient(circle at 15% 20%, rgba(216, 168, 140, 0.04), transparent 40%),
+    var(--grey-dark);
   padding-top: 5rem;
   padding-bottom: 5rem;
 }
+
+.scene--todo h2 { color: var(--white-soft); }
 
 .paper-texture {
   position: absolute;
   inset: 0;
   background-image:
-    repeating-linear-gradient(rgba(91, 70, 54, 0.025) 0px, rgba(91, 70, 54, 0.025) 1px, transparent 1px, transparent 32px);
+    repeating-linear-gradient(rgba(255, 255, 255, 0.02) 0px, rgba(255, 255, 255, 0.02) 1px, transparent 1px, transparent 32px);
   opacity: 0.6;
   pointer-events: none;
 }
@@ -265,7 +312,8 @@ img { max-width: 100%; display: block; }
 }
 
 .todo-card {
-  background: var(--warm-white);
+  background: var(--graphite);
+  border: 1px solid rgba(255, 255, 255, 0.06);
   border-radius: 14px;
   box-shadow: 0 10px 24px -12px var(--paper-shadow);
   padding: 1.1rem 1.3rem;
@@ -275,7 +323,8 @@ img { max-width: 100%; display: block; }
   text-align: left;
   transition: transform var(--dur-med) var(--ease-soft),
               opacity var(--dur-med) var(--ease-soft),
-              box-shadow var(--dur-med) var(--ease-soft);
+              box-shadow var(--dur-med) var(--ease-soft),
+              border-color var(--dur-med) var(--ease-soft);
 }
 
 /* subtle alternating rotation, kept very small */
@@ -284,8 +333,14 @@ img { max-width: 100%; display: block; }
 .todo-card.visible:nth-child(odd) { transform: rotate(-0.6deg); }
 .todo-card.visible:nth-child(even) { transform: rotate(0.5deg); }
 
+.todo-card:hover {
+  border-color: rgba(216, 168, 140, 0.35);
+  box-shadow: 0 14px 30px -14px var(--paper-shadow);
+  transform: translateY(-2px);
+}
+
 .todo-card.checked {
-  opacity: 0.55;
+  opacity: 0.5;
   transform: scale(0.97) rotate(0deg);
   box-shadow: 0 4px 12px -8px var(--paper-shadow);
 }
@@ -310,8 +365,8 @@ img { max-width: 100%; display: block; }
   margin: auto;
   width: 12px;
   height: 8px;
-  border-left: 2px solid var(--warm-white);
-  border-bottom: 2px solid var(--warm-white);
+  border-left: 2px solid var(--black);
+  border-bottom: 2px solid var(--black);
   transform: translateY(-1px) rotate(-45deg) scale(0);
   transition: transform 0.35s var(--ease-soft);
 }
@@ -327,12 +382,13 @@ img { max-width: 100%; display: block; }
 
 .todo-card__text {
   font-size: 1.05rem;
+  color: var(--ink);
   transition: color var(--dur-med) var(--ease-soft);
 }
 
 .todo-card.checked .todo-card__text {
   text-decoration: line-through;
-  color: var(--brown-soft);
+  color: var(--ink-dim);
 }
 
 .todo-card__spark {
@@ -358,19 +414,25 @@ img { max-width: 100%; display: block; }
    SCENE 3 — PHOTO MEMORY
 ========================================================= */
 .scene--photo {
-  background: linear-gradient(180deg, var(--cream), var(--blush));
+  background: linear-gradient(180deg, var(--grey-dark), var(--graphite));
   padding-top: 3rem;
   padding-bottom: 5rem;
 }
 
 .photo-frame {
-  background: var(--warm-white);
+  background: var(--charcoal);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   padding: 0.9rem 0.9rem 1.6rem;
   border-radius: 4px;
-  box-shadow: 0 18px 40px -18px var(--paper-shadow), 0 2px 6px rgba(91,70,54,0.08);
+  box-shadow: 0 18px 40px -18px var(--paper-shadow), 0 2px 6px rgba(0,0,0,0.3);
   transform: rotate(-1.2deg);
   margin: 0 auto 1.4rem;
   max-width: 380px;
+  transition: transform var(--dur-med) var(--ease-soft);
+}
+
+.photo-frame:hover {
+  transform: rotate(0deg) scale(1.015);
 }
 
 .photo-frame img {
@@ -382,7 +444,7 @@ img { max-width: 100%; display: block; }
   font-family: var(--font-display);
   font-style: italic;
   font-size: 1.15rem;
-  color: var(--brown-soft);
+  color: var(--ink-dim);
 }
 
 /* =========================================================
@@ -390,7 +452,7 @@ img { max-width: 100%; display: block; }
 ========================================================= */
 .scene--transition {
   min-height: 24vh;
-  background: linear-gradient(180deg, var(--blush), var(--blush));
+  background: var(--graphite);
   padding: 3rem 1.5rem;
 }
 
@@ -398,7 +460,7 @@ img { max-width: 100%; display: block; }
   font-family: var(--font-display);
   font-style: italic;
   font-size: clamp(1.2rem, 4vw, 1.5rem);
-  color: var(--brown-soft);
+  color: var(--ink-dim);
   text-align: center;
   max-width: 26rem;
 }
@@ -407,18 +469,39 @@ img { max-width: 100%; display: block; }
    SCENE 5 — APOLOGY LETTER
 ========================================================= */
 .scene--apology {
-  background: linear-gradient(180deg, var(--blush), var(--warm-white) 40%);
+  background: linear-gradient(180deg, var(--graphite), var(--charcoal) 40%);
   padding-top: 3rem;
   padding-bottom: 6rem;
 }
 
 .letter-card {
-  background: var(--warm-white);
+  background: var(--charcoal);
+  border: 1px solid rgba(255, 255, 255, 0.07);
   border-radius: 6px;
   box-shadow: 0 24px 60px -24px var(--paper-shadow);
   padding: 3rem 2.4rem;
   text-align: left;
   position: relative;
+  overflow: hidden;
+}
+
+/* Slow shimmer sweeping across the letter's edge — very subtle */
+.letter-card::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -60%;
+  width: 40%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(216, 168, 140, 0.05), transparent);
+  animation: shimmer 7s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes shimmer {
+  0% { left: -60%; }
+  50% { left: 120%; }
+  100% { left: 120%; }
 }
 
 .letter-card::before {
@@ -428,14 +511,14 @@ img { max-width: 100%; display: block; }
   left: 2.4rem;
   right: 2.4rem;
   height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(91,70,54,0.18), transparent);
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.14), transparent);
 }
 
 .letter-card__mark {
   color: var(--accent);
   font-size: 1.1rem;
   margin-bottom: 0.6rem;
-  opacity: 0.75;
+  opacity: 0.85;
 }
 
 .letter-card h2 {
@@ -447,7 +530,7 @@ img { max-width: 100%; display: block; }
 .letter-line {
   font-size: 1.12rem;
   line-height: 1.85;
-  color: var(--brown-ink);
+  color: var(--ink);
   margin-bottom: 1.5rem;
 }
 
@@ -455,7 +538,7 @@ img { max-width: 100%; display: block; }
   font-family: var(--font-display);
   font-style: italic;
   font-size: 1.6rem;
-  color: var(--accent-deep);
+  color: var(--accent);
   text-align: center;
   margin-top: 1.8rem;
 }
@@ -465,7 +548,7 @@ img { max-width: 100%; display: block; }
 ========================================================= */
 .scene--love {
   min-height: 100vh;
-  background: linear-gradient(180deg, var(--warm-white), var(--lavender) 55%, var(--blush));
+  background: linear-gradient(180deg, var(--charcoal), var(--graphite) 55%, var(--black));
   padding-top: 5rem;
   padding-bottom: 6rem;
 }
@@ -477,9 +560,38 @@ img { max-width: 100%; display: block; }
   width: 60vmax;
   height: 60vmax;
   transform: translate(-50%, -50%);
-  background: radial-gradient(circle, rgba(201, 124, 109, 0.16) 0%, rgba(201, 124, 109, 0) 65%);
+  background: radial-gradient(circle, rgba(216, 168, 140, 0.16) 0%, rgba(216, 168, 140, 0) 65%);
   animation: glow-breathe 8s ease-in-out infinite;
   z-index: 0;
+}
+
+/* Slow rotating ring — new ambient layer behind the main heading */
+.love__ring {
+  position: absolute;
+  left: 50%;
+  top: 42%;
+  width: 46vmax;
+  height: 46vmax;
+  max-width: 640px;
+  max-height: 640px;
+  transform: translate(-50%, -50%);
+  border: 1px solid rgba(216, 168, 140, 0.12);
+  border-radius: 50%;
+  z-index: 0;
+  animation: ring-spin 60s linear infinite;
+}
+
+.love__ring::before {
+  content: "";
+  position: absolute;
+  inset: 12%;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 50%;
+}
+
+@keyframes ring-spin {
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to { transform: translate(-50%, -50%) rotate(360deg); }
 }
 
 .love__hearts {
@@ -500,8 +612,8 @@ img { max-width: 100%; display: block; }
 
 @keyframes heart-rise {
   0% { transform: translateY(0) scale(0.8); opacity: 0; }
-  15% { opacity: 0.55; }
-  85% { opacity: 0.35; }
+  15% { opacity: 0.5; }
+  85% { opacity: 0.3; }
   100% { transform: translateY(-105vh) scale(1.1); opacity: 0; }
 }
 
@@ -509,7 +621,7 @@ img { max-width: 100%; display: block; }
   font-family: var(--font-display);
   font-style: italic;
   font-size: 1.3rem;
-  color: var(--brown-soft);
+  color: var(--ink-dim);
   margin-bottom: 1.2rem;
 }
 
@@ -517,6 +629,7 @@ img { max-width: 100%; display: block; }
   font-size: clamp(3rem, 12vw, 5.5rem);
   line-height: 1;
   margin-bottom: 1.6rem;
+  color: var(--white-soft);
 }
 
 .love__main .pulse-heart {
@@ -531,14 +644,14 @@ img { max-width: 100%; display: block; }
 
 .love__message {
   font-size: 1.2rem;
-  color: var(--brown-ink);
+  color: var(--ink);
   max-width: 28rem;
   margin: 0 auto 0.8rem;
 }
 
 .love__final {
   font-size: 1.1rem;
-  color: var(--brown-soft);
+  color: var(--ink-dim);
   max-width: 26rem;
   margin: 0 auto 2rem;
 }
@@ -553,28 +666,29 @@ img { max-width: 100%; display: block; }
   font-family: var(--font-display);
   font-style: italic;
   font-size: 1.2rem;
-  color: var(--brown-soft);
+  color: var(--ink-dim);
 }
 
 .restart {
   position: relative;
   z-index: 2;
   margin-top: 4rem;
-  background: var(--warm-white);
-  border: 1px solid rgba(91,70,54,0.15);
+  background: var(--charcoal);
+  border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 999px;
   padding: 0.8rem 1.6rem;
   font-family: var(--font-body);
   font-size: 0.95rem;
-  color: var(--brown-ink);
+  color: var(--ink);
   cursor: pointer;
   box-shadow: 0 10px 24px -14px var(--paper-shadow);
-  transition: transform var(--dur-med) var(--ease-soft), box-shadow var(--dur-med) var(--ease-soft);
+  transition: transform var(--dur-med) var(--ease-soft), box-shadow var(--dur-med) var(--ease-soft), border-color var(--dur-med) var(--ease-soft);
 }
 
 .restart:hover {
   transform: translateY(-2px);
   box-shadow: 0 14px 30px -14px var(--paper-shadow);
+  border-color: rgba(216, 168, 140, 0.4);
 }
 
 /* =========================================================
@@ -588,7 +702,8 @@ img { max-width: 100%; display: block; }
   display: flex;
   align-items: center;
   gap: 0.6rem;
-  background: var(--warm-white);
+  background: var(--charcoal);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 999px;
   padding: 0.4rem 0.5rem 0.4rem 1rem;
   box-shadow: 0 10px 26px -12px var(--paper-shadow);
@@ -598,12 +713,12 @@ img { max-width: 100%; display: block; }
   font-family: var(--font-display);
   font-style: italic;
   font-size: 0.95rem;
-  color: var(--brown-soft);
+  color: var(--ink-dim);
   white-space: nowrap;
 }
 
 .music-widget--error .music-widget__label {
-  color: var(--brown-soft);
+  color: var(--ink-dim);
   opacity: 0.7;
 }
 
@@ -613,8 +728,8 @@ img { max-width: 100%; display: block; }
   height: 40px;
   border-radius: 50%;
   border: none;
-  background: var(--peach);
-  color: var(--brown-ink);
+  background: var(--grey-dark);
+  color: var(--ink);
   font-size: 1rem;
   cursor: pointer;
   display: flex;
@@ -625,7 +740,7 @@ img { max-width: 100%; display: block; }
 
 .music-toggle--playing {
   background: var(--accent);
-  color: var(--warm-white);
+  color: var(--black);
   animation: pulse 3s ease-in-out infinite;
 }
 
@@ -638,13 +753,13 @@ img { max-width: 100%; display: block; }
    N8N CHATBOT WIDGET — repositioned bottom-left, themed to match
 ========================================================= */
 #n8n-chat {
-  /* Brand the widget with the page's own palette */
+  /* Brand the widget with the page's own monochrome palette */
   --chat--color-primary: var(--accent);
   --chat--color-primary-shade-50: var(--accent-deep);
   --chat--color-primary-shade-100: var(--accent-deep);
-  --chat--color-secondary: var(--brown-soft);
-  --chat--color-light: var(--cream);
-  --chat--color-dark: var(--brown-ink);
+  --chat--color-secondary: var(--grey-soft);
+  --chat--color-light: var(--charcoal);
+  --chat--color-dark: var(--ink);
   --chat--toggle--size: 56px;
   --chat--window--width: 380px;
   --chat--window--height: 560px;
