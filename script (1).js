@@ -8,45 +8,47 @@ const content = {
   girlfriendName: "HER_NAME",
 
   goodMorning: {
-    title: "Good Morning, Beautiful ❤️",
+    title: "Goodddd Morninggggg, Babduuuuu ❤️",
     message: "I hope your morning starts with a smile, even a small one."
   },
 
   todo: {
-    title: "Today's Little Things 🌸",
+    title: "Today's Lil Things 🌸",
     subtitle: "Nothing big. Just a few tiny reminders for you.",
     items: [
-      "Drink some water 💧",
-      "Eat something yummy 🥐",
-      "Take a little break ☁️",
-      "Smile at least once today 😊",
-      "Have a beautiful day ✨"
+      "Drink bhot saara paani 💧",
+      "Eat mast mast yummiee bhot saara khana🥐",
+      "Take care of yourself, you health and ,me☁️",
+      "Ingor faltu log and faltu baate dont let yourself down 😊",
+      "And dont forget me keep texting me calling me and miss me khupp saara✨"
     ]
   },
 
-  apology: {
+apology: {
     title: "About Yesterday...",
-    message1: "I know yesterday wasn't our best moment, and I've been thinking about it since.",
-    message2: "I'm sorry for the things I said and how I said them. That's on me.",
-    message3: "I don't want to make excuses. I just want you to know that I care about how you felt, and I never want an argument to make you feel less loved.",
-    message4: "I want to listen better and communicate better. I hope we can talk properly when you're ready.",
-    closing: "I'm sorry. ❤️"
+    message1: "I know yesterday was a bad day for both of uss, and I've been thinking about it since.",
+    message2: "I'm sorry for the things I said and I did. That's on me and you are totally innocent bebuu!I was the one who created the mess",
+    message3: "I don't want to make excuses. I just want you to know that I care about how you felt, and I never want an argument to make you feel less loved or something else",
+    message4: "Please dont get me wrong you will be never unloved by me, for me its always you and you and only youu januuu!Just the energy differs thats it!! no hate no grivences against you bebuuu.",
+    closing: "You are my sweet cutu lil babieee n?? why would i do this all to you?? But still, I'm sorry. ❤️"
   },
 
-  love: {
+
+   love: {
     title: "And one last thing...",
-    main: "I Love You",
-    message: "One bad day doesn't erase all the beautiful days we've shared.",
-    final: "You still mean the world to me."
+    main: "I Loveeeeeee Youuuuuuu Jaannnuuuuuuuuuuuu",
+    message: "I just fucking love you soo much that entire universe even multiverse will end up in it!.",
+    final: "You are everything to me!!"
   },
+
 
   photo: {
     enabled: true,
     path: "us.jpg", // put us.jpg in the SAME folder as index.html
-    caption: "One of my favorite people ❤️"
+    caption: "Gods finest creation ❤️"
   },
 
-  yourName: "YOUR_NAME",
+  yourName: "Rud",
 
   // Optional background song.
   // 1. Set enabled to true.
