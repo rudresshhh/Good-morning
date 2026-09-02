@@ -52,7 +52,7 @@ const content = {
   // Optional: set to an mp3 path to enable the tiny music control.
   // Music never autoplays — it only starts if she taps the button.
      music: {
-    enabled: false,
+    enabled: true,
     path: "song.mp3",
     label: "our song 🎵" // text shown next to the play control
   }
