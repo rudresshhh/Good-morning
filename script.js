@@ -58,7 +58,7 @@ apology: {
   // once she taps it, so the browser doesn't block it and it never
   // surprises her.
   music: {
-    enabled: false,
+    enabled: true,
     path: "song.mp3",
     label: "our song 🎵" // text shown next to the play control
   }
