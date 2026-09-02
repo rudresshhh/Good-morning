@@ -5,7 +5,7 @@
 ========================================================= */
 const content = {
 
-  girlfriendName: "HER_NAME",
+  girlfriendName: "Rituuu",
 
   goodMorning: {
     title: "Goodddd Morninggggg, Babduuuuu ❤️",
