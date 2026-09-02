@@ -8,7 +8,7 @@ const content = {
   girlfriendName: "Rituuu",
 
   goodMorning: {
-    title: "Goodddd Morninggggg, Babduuuuu ❤️",
+    title: "Goodddd Morninggggg, Shonulayyy ❤️",
     message: "I hope your morning starts with a smile, even a small one."
   },
 
@@ -25,8 +25,8 @@ const content = {
   },
 
 apology: {
-    title: "About Yesterday...",
-    message1: "I know yesterday was a bad day for both of uss, and I've been thinking about it since.",
+    title: "About last few days...",
+    message1: "I know last few days were bad days for both of uss, and I've been thinking about it since.",
     message2: "I'm sorry for the things I said and I did. That's on me and you are totally innocent bebuu!I was the one who created the mess",
     message3: "I don't want to make excuses. I just want you to know that I care about how you felt, and I never want an argument to make you feel less loved or something else",
     message4: "Please dont get me wrong you will be never unloved by me, for me its always you and you and only youu januuu!Just the energy differs thats it!! no hate no grivences against you bebuuu.",
@@ -36,7 +36,7 @@ apology: {
 
    love: {
     title: "And one last thing...",
-    main: "I Loveeeeeee Youuuuuuu Jaannnuuuuuuuuuuuu",
+    main: "I Loveeeeeee Youuuuuuu Jaannnuuuuuuuuu",
     message: "I just fucking love you soo much that entire universe even multiverse will end up in it!.",
     final: "You are everything to me!!"
   },
