@@ -64,7 +64,6 @@ apology: {
   }
 };
 
-
 /* =========================================================
    HERO — populate text
 ========================================================= */
@@ -201,6 +200,51 @@ if (!prefersReducedMotion) {
     p.style.animationDelay = `${delay}s`;
     particleField.appendChild(p);
   }
+}
+
+/* =========================================================
+   HERO — twinkling stars (new ambient layer)
+========================================================= */
+if (!prefersReducedMotion) {
+  const starField = document.getElementById("heroStars");
+  const starCount = window.innerWidth < 480 ? 30 : 55;
+
+  for (let i = 0; i < starCount; i++) {
+    const s = document.createElement("span");
+    s.className = "star";
+    const size = 1 + Math.random() * 1.6;
+    s.style.left = `${Math.random() * 100}%`;
+    s.style.top = `${Math.random() * 70}%`;
+    s.style.width = `${size}px`;
+    s.style.height = `${size}px`;
+    s.style.animationDuration = `${2.5 + Math.random() * 3.5}s`;
+    s.style.animationDelay = `${Math.random() * 4}s`;
+    starField.appendChild(s);
+  }
+}
+
+/* =========================================================
+   CURSOR SPOTLIGHT — soft light follows the pointer (desktop only)
+========================================================= */
+if (!prefersReducedMotion && window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
+  const spotlight = document.getElementById("spotlight");
+  let ticking = false;
+
+  document.addEventListener("mousemove", (e) => {
+    if (!ticking) {
+      requestAnimationFrame(() => {
+        spotlight.style.setProperty("--x", `${e.clientX}px`);
+        spotlight.style.setProperty("--y", `${e.clientY}px`);
+        spotlight.classList.add("active");
+        ticking = false;
+      });
+      ticking = true;
+    }
+  });
+
+  document.addEventListener("mouseleave", () => {
+    spotlight.classList.remove("active");
+  });
 }
 
 /* =========================================================
