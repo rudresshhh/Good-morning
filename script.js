@@ -42,7 +42,8 @@ const content = {
 
   photo: {
     enabled: true,
-    path: "us.jpg",
+    path: "us.jpg", // put us.jpg in the SAME folder as index.html
+     
     caption: "Gods finest creation ❤️"
   },
 
@@ -51,10 +52,10 @@ const content = {
   // Optional: set to an mp3 path to enable the tiny music control.
   // Music never autoplays — it only starts if she taps the button.
      music: {
-     enabled: true,
-     path: "song.mp3",
-     label: "our song 🎵"
-   }
+    enabled: false,
+    path: "song.mp3",
+    label: "our song 🎵" // text shown next to the play control
+  }
 };
 
 
